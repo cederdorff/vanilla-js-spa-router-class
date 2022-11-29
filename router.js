@@ -31,7 +31,8 @@ class Router {
      */
     navigateTo(path) {
         if (!this.routes[location.hash]) {
-            path = "#/"; // default path
+            // fallback, if route not exists
+            path = "#/";
         }
         window.history.pushState({}, path, this.#basePath + path);
         this.showPage(path);
@@ -78,7 +79,13 @@ class Router {
     initRouter() {
         this.attachNavLinkEvents();
         window.addEventListener("popstate", () => this.navigateTo(location.hash)); // change page when using back and forth in browser
-        this.navigateTo("#/");
+
+        let path = "#/"; // default path
+        if (this.routes[location.hash]) {
+            // to handle refresh without going back to "#/"
+            path = location.hash;
+        }
+        this.navigateTo(path);
     }
 }
 
