@@ -44,13 +44,13 @@ class Router {
     showPage(path) {
         this.hideAllPages(); // hide all pages
         document.querySelector(`#${this.routes[path]}`).style.display = "block"; // show page by given path
-        this.setActiveTab(path);
+        this.setActiveNavItem(path);
     }
 
     /**
      * sets active menu item by given path
      */
-    setActiveTab(path) {
+    setActiveNavItem(path) {
         for (const link of this.#navLinks) {
             if (path === link.getAttribute("href")) {
                 link.classList.add("active");
